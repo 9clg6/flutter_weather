@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/domain/usecase/get_current_location.dart';
 import 'package:flutter_weather/domain/usecase/get_current_weather.dart';
-import 'package:flutter_weather/presentation/view/home_weather.dart';
+import 'package:flutter_weather/presentation/view/home_page.dart';
 import 'package:flutter_weather/presentation/view_model/weather_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
           GetCurrentWeather(),
           GetCurrentLocation(),
         ),
-        child: const HomeWeather(),
+        child: const HomePage(),
       ),
     );
   }
