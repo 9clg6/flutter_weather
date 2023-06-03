@@ -1,7 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/domain/usecase/get_current_location.dart';
-import 'package:flutter_weather/domain/usecase/get_current_weather.dart';
 import 'package:flutter_weather/domain/usecase/get_forecast_for_location.dart';
 import 'package:flutter_weather/presentation/view/home_page.dart';
 import 'package:flutter_weather/presentation/view_model/forecast_viewmodel.dart';
@@ -12,7 +11,6 @@ import 'package:provider/provider.dart';
 final getIt = GetIt.instance;
 
 void main() {
-  getIt.registerSingleton<GetCurrentWeather>(GetCurrentWeather());
   getIt.registerSingleton<GetCurrentLocation>(GetCurrentLocation());
   getIt.registerSingleton<GetForecastForLocation>(GetForecastForLocation());
 

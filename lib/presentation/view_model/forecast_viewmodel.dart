@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/domain/entity/forecast.dart';
+import 'package:flutter_weather/domain/entity/weather_data.dart';
 import 'package:flutter_weather/domain/usecase/get_current_location.dart';
 import 'package:flutter_weather/domain/usecase/get_forecast_for_location.dart';
 import 'package:flutter_weather/main.dart';
@@ -9,8 +9,8 @@ class ForecastViewModel extends ChangeNotifier {
   final GetForecastForLocation getForecastForLocation;
   final GetCurrentLocation getCurrentLocation;
 
-  List<Forecast>? _forecastList;
-  List<Forecast>? get forecastList => _forecastList;
+  WeatherData? _forecastList;
+  WeatherData? get weatherData => _forecastList;
 
   ForecastViewModel()
       : getForecastForLocation = getIt.get<GetForecastForLocation>(),
@@ -23,7 +23,7 @@ class ForecastViewModel extends ChangeNotifier {
     } else {
       //_forecastList = await getForecastForLocation.getForecastForLocation(position, days);
     }
-    Logger().i("FETCH | Forecast for $days days: ${_forecastList?.length}");
+    Logger().i("FETCH | Forecast for $days days: ${_forecastList?.forecast.length}");
     notifyListeners();
   }
 }

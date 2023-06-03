@@ -25,23 +25,78 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         });
       },
       controller: _refreshController,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Consumer<WeatherViewModel>(
-            builder: (_, weatherViewModel, ___) {
-              return Column(
-                children: [
-                  Text("${weatherViewModel.weather?.$2.name} - ${weatherViewModel.weather?.$2.country} "),
-                  Text("Dernière mise à jour: ${weatherViewModel.weather?.$2.localtime}"),
-                  Text('Temperature: ${weatherViewModel.weather?.$1.tempC} °C'),
-                  Text('Température ressentie: ${weatherViewModel.weather?.$1.feelslikeC} °C'),
-                  Text('Vitesse du vent: ${weatherViewModel.weather?.$1.windKph} kmh'),
-                ],
-              );
-            },
-          ),
-        ],
+      child: Consumer<WeatherViewModel>(
+        builder: (_, weatherViewModel, ___) {
+          if (weatherViewModel.weather != null) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                  child: Container(
+                    width: double.infinity,
+                    height: 150,
+                    padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).colorScheme.secondary,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${weatherViewModel.weather?.location.name} - ${weatherViewModel.weather?.location.country}",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Text(
+                              'Ressenti: ${weatherViewModel.weather?.current.feelslikeC} °C',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                            Text(
+                              'Vent: ${weatherViewModel.weather?.current.windKph} kmh',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${weatherViewModel.weather?.current.tempC.toStringAsFixed(0)}°C",
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.background,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 45,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            );
+          }
+          return Text("");
+        },
       ),
     );
   }

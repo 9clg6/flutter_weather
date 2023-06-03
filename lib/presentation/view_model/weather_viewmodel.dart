@@ -1,26 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_weather/domain/entity/location.dart';
-import 'package:flutter_weather/domain/entity/weather.dart';
+import 'package:flutter_weather/domain/entity/weather_data.dart';
 import 'package:flutter_weather/domain/usecase/get_current_location.dart';
-import 'package:flutter_weather/domain/usecase/get_current_weather.dart';
+import 'package:flutter_weather/domain/usecase/get_forecast_for_location.dart';
 import 'package:flutter_weather/main.dart';
 import 'package:logger/logger.dart';
 
 class WeatherViewModel extends ChangeNotifier {
-  final GetCurrentWeather getCurrentWeather;
   final GetCurrentLocation getCurrentLocation;
+  final GetForecastForLocation getForecastForLocation;
 
-  (Weather, Location)? _weather;
-  (Weather, Location)? get weather => _weather;
+  WeatherData? _weather;
+  WeatherData? get weather => _weather;
 
   WeatherViewModel()
-      : getCurrentWeather = getIt.get<GetCurrentWeather>(),
+      : getForecastForLocation = getIt.get<GetForecastForLocation>(),
         getCurrentLocation = getIt.get<GetCurrentLocation>();
 
   Future<void> fetchWeatherWithLocation() async {
     final position = await getCurrentLocation.getCurrentLocation();
-    _weather = await getCurrentWeather.getCurrentLocationWeather(position);
-    Logger().i("FETCH | Weather now : ${weather?.$2.localtimeEpoch}");
+    _weather = await getForecastForLocation.getForecastForLocation(position, 1);
+    Logger().i("FETCH | Weather now : ${weather?.current.lastUpdated}");
     notifyListeners();
   }
 }

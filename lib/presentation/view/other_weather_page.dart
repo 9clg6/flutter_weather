@@ -68,14 +68,14 @@ class _OtherWeatherPageState extends State<OtherWeatherPage> {
         ),
         Consumer<ForecastViewModel>(
           builder: (_, forecast, __) {
-            if (forecast.forecastList != null && forecast.forecastList!.isNotEmpty) {
+            if (forecast.weatherData != null && forecast.weatherData!.forecast.isNotEmpty) {
               return Expanded(
                 child: SizedBox(
                   width: 400,
                   child: ListView.builder(
-                    itemCount: forecast.forecastList!.length,
+                    itemCount: forecast.weatherData!.forecast.length,
                     itemBuilder: (context, dayIndex) {
-                      final currentDay = forecast.forecastList!.elementAt(dayIndex);
+                      final currentDay = forecast.weatherData!.forecast.elementAt(dayIndex);
                       return Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
