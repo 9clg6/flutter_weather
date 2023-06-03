@@ -1,13 +1,29 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/presentation/view/current_weather_page.dart';
 import 'package:flutter_weather/presentation/view/custom_search_page.dart';
+import 'package:flutter_weather/presentation/view_model/forecast_viewmodel.dart';
+import 'package:flutter_weather/presentation/view_model/weather_viewmodel.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+@RoutePage()
+class HomePage extends StatefulWidget implements AutoRouteWrapper {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   State<HomePage> createState() => _HomePageState();
+
+  @override
+  Widget wrappedRoute(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WeatherViewModel()),
+        ChangeNotifierProvider(create: (_) => ForecastViewModel()),
+      ],
+      child: this,
+    );
+  }
 }
 
 class _HomePageState extends State<HomePage> {

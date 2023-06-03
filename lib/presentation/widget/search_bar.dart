@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatefulWidget {
   final Future<void> Function(String formText) endingOnTap;
+
   const CustomSearchBar({Key? key, required this.endingOnTap}) : super(key: key);
 
   @override
@@ -12,6 +13,12 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
   bool _isArrowVisible = false;
   final _cityTextController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void dispose() {
+    _cityTextController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

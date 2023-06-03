@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/presentation/view_model/weather_viewmodel.dart';
 import 'package:flutter_weather/presentation/widget/current_weather_card.dart';
+import 'package:flutter_weather/presentation/widget/forecast_list.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
@@ -46,13 +47,19 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                     children: [
                       _buildCard(context, weatherViewModel),
                       _buildListViewHoursCondition(weatherViewModel),
+                      const SizedBox(height: 25),
+                      ForecastList(forecast: weatherViewModel.weather!.forecast)
                     ],
                   ),
                 ),
               ],
             );
           }
-          return Text("");
+          return Center(
+            child: CircularProgressIndicator(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          );
         },
       ),
     );

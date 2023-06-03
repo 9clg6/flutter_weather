@@ -9,7 +9,7 @@ import 'package:geolocator/geolocator.dart';
 
 class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   @override
-  Future<WeatherData>? getForecastForLocation(Position? location, String? city, int days) async {
+  Future<WeatherData>? getForecastByLocation(Position? location, String? city, int days) async {
     final currentLocationWeatherResponse = await ApiHelper.get(
       url: forecastApiBase,
       params: {
@@ -25,6 +25,22 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
     if (city != null && decodedWeather["error"] != null) {
       throw NoLocationFoundException("Aucune ville n'a été trouvée avec ce nom");
     }
+    return WeatherData.fromJson(decodedWeather);
+  }
+
+  Future<WeatherData>? getForecastByCityAndDate(String city, DateTime date) async {
+    final currentLocationWeatherResponse = await ApiHelper.get(
+      url: forecastApiBase,
+      params: {
+        "key": apiKey,
+        "alerts": "no",
+        "aqi": "no",
+        "q": city,
+        "dt": "${date.year}/${date.month}/${date.day}",
+        "lang": "fr",
+      },
+    );
+    final decodedWeather = jsonDecode(currentLocationWeatherResponse.body);
     return WeatherData.fromJson(decodedWeather);
   }
 }

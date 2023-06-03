@@ -42,10 +42,13 @@ dependencies:
   get_it: ^7.6.0
   pull_to_refresh: ^2.0.0
   flex_color_scheme: ^7.1.2
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  auto_route_generator: ^7.1.1
+  build_runner: ^2.4.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is

@@ -17,14 +17,6 @@ class _SearchPageState extends State<SearchPage> {
   String? _error;
 
   @override
-  void dispose() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ForecastViewModel>(context, listen: false).weatherData = null;
-    });
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<ForecastViewModel>(
       builder: (_, viewModel, __) {

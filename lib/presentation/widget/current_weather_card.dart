@@ -11,7 +11,7 @@ class CurrentWeatherCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final lastUpdate = weatherViewModel.weather?.current.lastUpdated;
+    final lastUpdate = weatherViewModel.weather?.current?.lastUpdated;
 
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15),
@@ -55,7 +55,7 @@ class CurrentWeatherCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Ressenti: ${weatherViewModel.weather?.current.feelslikeC} °C',
+                        'Ressenti: ${weatherViewModel.weather?.current?.feelslikeC} °C',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.w500,
@@ -63,7 +63,7 @@ class CurrentWeatherCard extends StatelessWidget {
                         ),
                       ),
                       Text(
-                        'Vent: ${weatherViewModel.weather?.current.windKph} kmh',
+                        'Vent: ${weatherViewModel.weather?.current?.windKph} kmh',
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.w500,
@@ -76,7 +76,7 @@ class CurrentWeatherCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "${weatherViewModel.weather?.current.tempC.toStringAsFixed(0)}°C",
+                        "${weatherViewModel.weather?.current?.tempC.toStringAsFixed(0)}°C",
                         style: TextStyle(
                           color: Theme.of(context).colorScheme.background,
                           fontWeight: FontWeight.w600,

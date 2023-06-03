@@ -7,7 +7,12 @@ class WeatherRepositoryImpl extends WeatherRepository {
   final remoteDataSource = WeatherRemoteDataSourceImpl();
 
   @override
-  Future<WeatherData>? getForecastForLocation(Position? location, String? city, int days) {
-    return remoteDataSource.getForecastForLocation(location, city, days);
+  Future<WeatherData>? getForecastByLocation(Position? location, String? city, int days) {
+    return remoteDataSource.getForecastByLocation(location, city, days);
+  }
+
+  @override
+  Future<WeatherData>? getForecastByCityAndDate(String city, DateTime date) {
+    return remoteDataSource.getForecastByCityAndDate(city, date);
   }
 }
