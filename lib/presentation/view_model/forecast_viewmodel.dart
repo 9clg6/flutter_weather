@@ -8,8 +8,12 @@ class ForecastViewModel extends ChangeNotifier {
   final GetForecastForLocation getForecastForLocation;
   final GetCurrentLocation getCurrentLocation;
 
-  WeatherData? _forecastList;
-  WeatherData? get weatherData => _forecastList;
+  WeatherData? _weatherData;
+  WeatherData? get weatherData => _weatherData;
+  set weatherData(WeatherData? value) {
+    _weatherData = value;
+    notifyListeners();
+  }
 
   ForecastViewModel()
       : getForecastForLocation = getIt.get<GetForecastForLocation>(),
@@ -18,9 +22,9 @@ class ForecastViewModel extends ChangeNotifier {
   Future<void> fetchForecast({String? cityName, int days = 1}) async {
     if (cityName == null) {
       final position = await getCurrentLocation.getCurrentLocation();
-      _forecastList = await getForecastForLocation.getForecastForLocation(location: position, days: days);
+      _weatherData = await getForecastForLocation.getForecastForLocation(location: position, days: days);
     } else {
-      _forecastList = await getForecastForLocation.getForecastForLocation(city: cityName, days: days);
+      _weatherData = await getForecastForLocation.getForecastForLocation(city: cityName, days: days);
     }
     notifyListeners();
   }
