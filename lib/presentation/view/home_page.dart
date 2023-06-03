@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_weather/presentation/view/current_weather_page.dart';
 import 'package:flutter_weather/presentation/view/other_weather_page.dart';
 
@@ -20,13 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.secondary,
-        title: Text(
-          "Flutter MayWeather ☀️",
-          style: TextStyle(color: Theme.of(context).colorScheme.background),
-        ),
-      ),
+      appBar: AppBar(systemOverlayStyle: SystemUiOverlayStyle.dark),
       backgroundColor: Theme.of(context).colorScheme.background,
       bottomNavigationBar: NavigationBar(
         height: 65,
