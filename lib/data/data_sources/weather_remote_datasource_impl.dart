@@ -18,6 +18,7 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
         "alerts": "no",
         "aqi": "no",
         "q": location != null ? "${location.latitude},${location.longitude}" : city,
+        "lang": "fr",
       },
     );
     final decodedWeather = jsonDecode(currentLocationWeatherResponse.body);

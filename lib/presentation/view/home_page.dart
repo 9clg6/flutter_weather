@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: PageView(
             controller: controller,
+            physics: const NeverScrollableScrollPhysics(),
             children: _children,
             onPageChanged: (value) {
               setState(() => _selectedIndex = value);
