@@ -33,52 +33,54 @@ class ForecastDetailedDayPage extends StatelessWidget {
         ),
       ),
       backgroundColor: Theme.of(context).colorScheme.primary,
-      body: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+      body: Scrollbar(
         child: SingleChildScrollView(
-          child: Center(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _buildMinMaxRow(context),
-                const SizedBox(height: 25),
-                _buildSunRiseSunSet(context),
-                SizedBox(
-                  width: 200,
-                  child: Divider(
-                    color: Theme.of(context).colorScheme.background,
-                    height: 50,
-                    thickness: 1,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+            child: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  _buildMinMaxRow(context),
+                  const SizedBox(height: 25),
+                  _buildSunRiseSunSet(context),
+                  SizedBox(
+                    width: 200,
+                    child: Divider(
+                      color: Theme.of(context).colorScheme.background,
+                      height: 50,
+                      thickness: 1,
+                    ),
                   ),
-                ),
-                ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    final currentHour = forecast.hour.elementAt(index);
-                    final maxTemp = forecast.day.maxTempC;
-                    final hour = "${DateTime.fromMillisecondsSinceEpoch(currentHour.timeEpoch * 1000).hour}:00";
+                  ListView.separated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      final currentHour = forecast.hour.elementAt(index);
+                      final maxTemp = forecast.day.maxTempC;
+                      final hour = "${DateTime.fromMillisecondsSinceEpoch(currentHour.timeEpoch * 1000).hour}:00";
 
-                    return LinearPercentIndicator(
-                      lineHeight: 35,
-                      center: Text("${currentHour.tempC.toStringAsFixed(0)} °C"),
-                      percent: currentHour.tempC / maxTemp,
-                      backgroundColor: Theme.of(context).colorScheme.background,
-                      progressColor: Theme.of(context).colorScheme.secondary,
-                      leading: Text(
-                        hour,
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.background,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      return LinearPercentIndicator(
+                        lineHeight: 35,
+                        center: Text("${currentHour.tempC.toStringAsFixed(0)} °C"),
+                        percent: currentHour.tempC / maxTemp,
+                        backgroundColor: Theme.of(context).colorScheme.background,
+                        progressColor: Theme.of(context).colorScheme.secondary,
+                        leading: Text(
+                          hour,
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.background,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(height: 25),
-                  itemCount: forecast.hour.length,
-                ),
-              ],
+                      );
+                    },
+                    separatorBuilder: (context, index) => const SizedBox(height: 25),
+                    itemCount: forecast.hour.length,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
