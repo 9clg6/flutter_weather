@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:flutter_weather/data/constants.dart';
 import 'package:flutter_weather/data/util/api_helper.dart';
+import 'package:flutter_weather/domain/constants.dart';
 import 'package:flutter_weather/domain/entity/weather_data.dart';
 import 'package:flutter_weather/domain/exception/no_location_found_exception.dart';
 import 'package:flutter_weather/foundation/weather_remote_datasource.dart';

@@ -52,39 +52,54 @@ class ForecastDetailedDayPage extends StatelessWidget {
                       thickness: 1,
                     ),
                   ),
-                  ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final currentHour = forecast.hour.elementAt(index);
-                      final maxTemp = forecast.day.maxTempC;
-                      final hour = "${DateTime.fromMillisecondsSinceEpoch(currentHour.timeEpoch * 1000).hour}:00";
-
-                      return LinearPercentIndicator(
-                        lineHeight: 35,
-                        center: Text("${currentHour.tempC.toStringAsFixed(0)} °C"),
-                        percent: currentHour.tempC / maxTemp,
-                        backgroundColor: Theme.of(context).colorScheme.background,
-                        progressColor: Theme.of(context).colorScheme.secondary,
-                        leading: Text(
-                          hour,
-                          style: TextStyle(
-                            color: Theme.of(context).colorScheme.background,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      );
-                    },
-                    separatorBuilder: (context, index) => const SizedBox(height: 25),
-                    itemCount: forecast.hour.length,
-                  ),
+                  _buildHours(),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  ListView _buildHours() {
+    return ListView.separated(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) {
+        final currentHour = forecast.hour.elementAt(index);
+        final maxTemp = forecast.day.maxTempC;
+        final hour = "${DateTime.fromMillisecondsSinceEpoch(currentHour.timeEpoch * 1000).hour}:00";
+
+        return LinearPercentIndicator(
+          lineHeight: 35,
+          center: Text(
+            "${currentHour.tempC.toStringAsFixed(0)} °C",
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          percent: currentHour.tempC / maxTemp,
+          backgroundColor: Theme.of(context).colorScheme.background,
+          progressColor: Theme.of(context).colorScheme.secondary,
+          barRadius: const Radius.circular(20),
+          animation: true,
+          curve: Curves.bounceOut,
+          animationDuration: 1500,
+          leading: Text(
+            hour,
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.background,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      },
+      separatorBuilder: (context, index) => const SizedBox(height: 25),
+      itemCount: forecast.hour.length,
     );
   }
 
