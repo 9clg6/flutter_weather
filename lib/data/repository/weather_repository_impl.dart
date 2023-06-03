@@ -1,4 +1,5 @@
 import 'package:flutter_weather/data/data_sources/weather_remote_datasource_impl.dart';
+import 'package:flutter_weather/domain/entity/forecast.dart';
 import 'package:flutter_weather/domain/entity/location.dart';
 import 'package:flutter_weather/domain/entity/weather.dart';
 import 'package:flutter_weather/foundation/weather_repository.dart';
@@ -25,7 +26,17 @@ class WeatherRepositoryImpl extends WeatherRepository {
     try {
       return remoteDataSource.getCurrentLocationWeather(location);
     } catch (e) {
-      Logger().e("Can't fetch current weather [CurrentLocation]: $e");
+      Logger().e("Can't fetch current weather: $e");
+      return null;
+    }
+  }
+
+  @override
+  Future<List<Forecast>>? getForecastForLocation(Position location, int days) {
+    try {
+      return remoteDataSource.getForecastForLocation(location, days);
+    } catch (e) {
+      Logger().e("Can't fetch forecast weather: $e");
       return null;
     }
   }
