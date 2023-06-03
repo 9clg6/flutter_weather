@@ -20,9 +20,20 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        title: Text(
+          "Flutter MayWeather ☀️",
+          style: TextStyle(color: Theme.of(context).colorScheme.background),
+        ),
+      ),
+      backgroundColor: Theme.of(context).colorScheme.background,
       bottomNavigationBar: NavigationBar(
+        height: 65,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
         selectedIndex: _selectedIndex,
-        backgroundColor: Colors.red,
+        labelBehavior: NavigationDestinationLabelBehavior.onlyShowSelected,
+        indicatorColor: Theme.of(context).colorScheme.background,
         onDestinationSelected: (int index) {
           setState(() {
             _selectedIndex = index;
@@ -33,16 +44,30 @@ class _HomePageState extends State<HomePage> {
             );
           });
         },
-        destinations: const [
+        destinations: [
           NavigationDestination(
-            selectedIcon: Icon(Icons.home),
-            icon: Icon(Icons.home_outlined),
-            label: 'Learn',
+            selectedIcon: Icon(
+              Icons.home,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+            icon: Icon(
+              Icons.home_outlined,
+              color: Theme.of(context).colorScheme.background,
+            ),
+            label: 'Accueil',
+            tooltip: "Accueil",
           ),
           NavigationDestination(
-            icon: Icon(Icons.search),
-            selectedIcon: Icon(Icons.search_outlined),
-            label: 'Relearn',
+            icon: Icon(
+              Icons.search,
+              color: Theme.of(context).colorScheme.background,
+            ),
+            selectedIcon: Icon(
+              Icons.search_outlined,
+              color: Theme.of(context).colorScheme.tertiary,
+            ),
+            label: 'Rechercher',
+            tooltip: "Rechercher la météo d'une ville",
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_weather/domain/usecase/get_current_location.dart';
 import 'package:flutter_weather/domain/usecase/get_current_weather.dart';
@@ -23,10 +24,22 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.brandBlue,
         useMaterial3: true,
+        textTheme: TextTheme(
+          labelSmall: TextStyle(
+            color: Theme.of(context).primaryColorDark,
+          ),
+        ),
+      ).copyWith(
+        navigationBarTheme: NavigationBarThemeData(
+          labelTextStyle: MaterialStateProperty.all(
+            const TextStyle(color: Colors.white),
+          ),
+        ),
       ),
+      themeMode: ThemeMode.light,
       home: ChangeNotifierProvider(
         create: (context) => WeatherViewModel(),
         child: const HomePage(),

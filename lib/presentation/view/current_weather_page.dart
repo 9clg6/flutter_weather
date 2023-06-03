@@ -33,7 +33,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
               return Column(
                 children: [
                   Text("${weatherViewModel.weather?.$2.name}"),
-                  Text("Dernière mise à jour: ${weatherViewModel.weather!.$2.localtime}"),
+                  Text("Dernière mise à jour: ${weatherViewModel.weather?.$2.localtime}"),
                   Text('Temperature: ${weatherViewModel.weather?.$1.tempC} °C'),
                   Text('Température ressentie: ${weatherViewModel.weather?.$1.feelslikeC} °C'),
                   Text('Vitesse du vent: ${weatherViewModel.weather?.$1.windKph} kmh'),

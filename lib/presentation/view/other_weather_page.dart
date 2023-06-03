@@ -24,11 +24,12 @@ class _OtherWeatherPageState extends State<OtherWeatherPage> {
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(20),
                 ),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
                 child: FractionallySizedBox(
                   widthFactor: 0.7,
                   child: TextFormField(
                     controller: _cityTextController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Quelle ville ?",
                     ),
@@ -41,11 +42,12 @@ class _OtherWeatherPageState extends State<OtherWeatherPage> {
                   border: Border.all(color: Colors.black),
                   borderRadius: BorderRadius.circular(20),
                 ),
+                padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
                 child: FractionallySizedBox(
                   widthFactor: 0.7,
                   child: TextFormField(
                     controller: _dateController,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       hintText: "Quel jour ?",
                     ),
