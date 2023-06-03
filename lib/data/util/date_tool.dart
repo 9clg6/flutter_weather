@@ -1,3 +1,6 @@
+import 'package:flutter_weather/domain/exception/week_day_exception.dart';
+import 'package:flutter_weather/domain/exception/wrong_month_exception.dart';
+
 String dateTimeToFrenchDate(DateTime date) {
   final weekDay = weekDayToWeekDayName(date.weekday);
   return "$weekDay ${date.day} ${monthNumberToMonthName(date.month)} ${date.year}";
@@ -12,7 +15,7 @@ String weekDayToWeekDayName(int weekDay) {
     5 => 'Vendredi',
     6 => 'Samedi',
     7 => 'Dimanche',
-    _ => ""
+    _ => throw WeekDayException("Unknown weekday $weekDay"),
   };
 }
 
@@ -30,6 +33,6 @@ String monthNumberToMonthName(int month) {
     10 => 'Octobre',
     11 => 'Novembre',
     12 => 'Décembre',
-    _ => ""
+    _ => throw WrongMonthException("Unknown month $month"),
   };
 }

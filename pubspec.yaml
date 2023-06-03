@@ -45,8 +45,7 @@ dependencies:
   percent_indicator: ^4.2.3
 
 dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  test: ^1.24.3
   auto_route_generator: ^7.1.1
   build_runner: ^2.4.4
 
