@@ -1,4 +1,5 @@
 import 'package:flutter_weather/data/data_sources/weather_remote_datasource_impl.dart';
+import 'package:flutter_weather/domain/entity/location.dart';
 import 'package:flutter_weather/domain/entity/weather.dart';
 import 'package:flutter_weather/foundation/weather_repository.dart';
 import 'package:geolocator/geolocator.dart';
@@ -20,7 +21,7 @@ class WeatherRepositoryImpl extends WeatherRepository {
   }
 
   @override
-  Future<Weather>? getCurrentLocationWeather(Position location) {
+  Future<(Weather, Location)>? getCurrentLocationWeather(Position location) {
     try {
       return remoteDataSource.getCurrentLocationWeather(location);
     } catch (e) {

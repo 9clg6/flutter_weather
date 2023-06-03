@@ -3,9 +3,15 @@ import 'package:flutter_weather/domain/usecase/get_current_location.dart';
 import 'package:flutter_weather/domain/usecase/get_current_weather.dart';
 import 'package:flutter_weather/presentation/view/home_page.dart';
 import 'package:flutter_weather/presentation/view_model/weather_viewmodel.dart';
+import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
 
+final getIt = GetIt.instance;
+
 void main() {
+  getIt.registerSingleton<GetCurrentWeather>(GetCurrentWeather());
+  getIt.registerSingleton<GetCurrentLocation>(GetCurrentLocation());
+
   runApp(const MyApp());
 }
 
@@ -22,10 +28,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: ChangeNotifierProvider(
-        create: (context) => WeatherViewModel(
-          GetCurrentWeather(),
-          GetCurrentLocation(),
-        ),
+        create: (context) => WeatherViewModel(),
         child: const HomePage(),
       ),
     );
