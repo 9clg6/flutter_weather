@@ -3,7 +3,6 @@ import 'package:flutter_weather/domain/entity/weather_data.dart';
 import 'package:flutter_weather/domain/usecase/get_current_location.dart';
 import 'package:flutter_weather/domain/usecase/get_forecast_for_location.dart';
 import 'package:flutter_weather/main.dart';
-import 'package:logger/logger.dart';
 
 class ForecastViewModel extends ChangeNotifier {
   final GetForecastForLocation getForecastForLocation;
@@ -19,11 +18,10 @@ class ForecastViewModel extends ChangeNotifier {
   Future<void> fetchForecast({String? cityName, int days = 1}) async {
     if (cityName == null) {
       final position = await getCurrentLocation.getCurrentLocation();
-      _forecastList = await getForecastForLocation.getForecastForLocation(position, days);
+      _forecastList = await getForecastForLocation.getForecastForLocation(location: position, days: days);
     } else {
-      //_forecastList = await getForecastForLocation.getForecastForLocation(position, days);
+      _forecastList = await getForecastForLocation.getForecastForLocation(city: cityName, days: days);
     }
-    Logger().i("FETCH | Forecast for $days days: ${_forecastList?.forecast.length}");
     notifyListeners();
   }
 }

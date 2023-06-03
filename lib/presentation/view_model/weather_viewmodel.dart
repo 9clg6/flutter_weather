@@ -3,7 +3,6 @@ import 'package:flutter_weather/domain/entity/weather_data.dart';
 import 'package:flutter_weather/domain/usecase/get_current_location.dart';
 import 'package:flutter_weather/domain/usecase/get_forecast_for_location.dart';
 import 'package:flutter_weather/main.dart';
-import 'package:logger/logger.dart';
 
 class WeatherViewModel extends ChangeNotifier {
   final GetCurrentLocation getCurrentLocation;
@@ -18,8 +17,7 @@ class WeatherViewModel extends ChangeNotifier {
 
   Future<void> fetchWeatherWithLocation() async {
     final position = await getCurrentLocation.getCurrentLocation();
-    _weather = await getForecastForLocation.getForecastForLocation(position, 1);
-    Logger().i("FETCH | Weather now : ${weather?.current.lastUpdated}");
+    _weather = await getForecastForLocation.getForecastForLocation(location: position, days: 1);
     notifyListeners();
   }
 }

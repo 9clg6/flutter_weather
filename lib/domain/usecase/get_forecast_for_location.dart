@@ -5,7 +5,7 @@ import 'package:geolocator/geolocator.dart';
 class GetForecastForLocation {
   final repository = WeatherRepositoryImpl();
 
-  Future<WeatherData>? getForecastForLocation(Position location, int days) {
-    return repository.getForecastForLocation(location, days);
+  Future<WeatherData>? getForecastForLocation({Position? location, String? city, int days = 1}) {
+    return repository.getForecastForLocation(location, city, days);
   }
 }

@@ -77,12 +77,15 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: SafeArea(
-        child: PageView(
-          controller: controller,
-          children: _children,
-          onPageChanged: (value) {
-            setState(() => _selectedIndex = value);
-          },
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: PageView(
+            controller: controller,
+            children: _children,
+            onPageChanged: (value) {
+              setState(() => _selectedIndex = value);
+            },
+          ),
         ),
       ),
     );

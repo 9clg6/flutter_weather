@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/domain/exception/no_location_found_exception.dart';
 import 'package:flutter_weather/presentation/view_model/forecast_viewmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -11,110 +12,74 @@ class OtherWeatherPage extends StatefulWidget {
 
 class _OtherWeatherPageState extends State<OtherWeatherPage> {
   final _cityTextController = TextEditingController();
-  final _dateController = TextEditingController();
-
-  @override
-  void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<ForecastViewModel>(context, listen: false).fetchForecast(days: 5);
-    });
-    super.initState();
-  }
+  bool _isArrowVisible = false;
+  String? error;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Form(
-          child: Column(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
-                child: FractionallySizedBox(
-                  widthFactor: 0.7,
-                  child: TextFormField(
-                    controller: _cityTextController,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Quelle ville ?",
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: Container(
+              height: 50,
+              width: 300,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: TextFormField(
+                      controller: _cityTextController,
+                      onChanged: (value) {
+                        setState(() {
+                          error = null;
+                          if (value.isNotEmpty) {
+                            _isArrowVisible = true;
+                          } else {
+                            _isArrowVisible = false;
+                          }
+                        });
+                      },
+                      decoration: InputDecoration(
+                        icon: const Icon(Icons.search),
+                        iconColor: Theme.of(context).colorScheme.primary,
+                        border: InputBorder.none,
+                        hintText: "Rechercher une ville",
+                      ),
                     ),
                   ),
-                ),
+                  if (_isArrowVisible)
+                    InkWell(
+                      child: Icon(
+                        Icons.arrow_forward,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      onTap: () {
+                        Provider.of<ForecastViewModel>(
+                          context,
+                          listen: false,
+                        ).fetchForecast(cityName: _cityTextController.text).onError((e, stackTrace) {
+                          setState(() => error = (e as NoLocationFoundException).cause);
+                        });
+                      },
+                    )
+                ],
               ),
-              const SizedBox(height: 10),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
-                child: FractionallySizedBox(
-                  widthFactor: 0.7,
-                  child: TextFormField(
-                    controller: _dateController,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Quel jour ?",
-                    ),
-                  ),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
-        Consumer<ForecastViewModel>(
-          builder: (_, forecast, __) {
-            if (forecast.weatherData != null && forecast.weatherData!.forecast.isNotEmpty) {
-              return Expanded(
-                child: SizedBox(
-                  width: 400,
-                  child: ListView.builder(
-                    itemCount: forecast.weatherData!.forecast.length,
-                    itemBuilder: (context, dayIndex) {
-                      final currentDay = forecast.weatherData!.forecast.elementAt(dayIndex);
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(currentDay.date),
-                          SizedBox(
-                            height: 60,
-                            child: ListView.separated(
-                              shrinkWrap: true, // This is needed to make ListView take minimum possible space
-                              scrollDirection: Axis.horizontal,
-                              itemCount: currentDay.hour.length,
-                              itemBuilder: (context, hourIndex) {
-                                final currentHour = currentDay.hour.elementAt(hourIndex);
-                                return Container(
-                                  width: 80,
-                                  height: 200,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).colorScheme.secondary,
-                                  ),
-                                  child: Center(
-                                    child: Text(currentHour.tempC.toString()),
-                                  ),
-                                );
-                              },
-                              separatorBuilder: (context, index) {
-                                return const SizedBox(width: 15);
-                              },
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                ),
-              );
-            } else {
-              return Text("C vide");
-            }
-          },
-        ),
+        if (error != null)
+          Text(
+            error!,
+            style: TextStyle(color: Colors.red),
+          )
       ],
     );
   }
