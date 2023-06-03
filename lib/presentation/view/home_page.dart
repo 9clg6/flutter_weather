@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/presentation/view/current_weather_page.dart';
-import 'package:flutter_weather/presentation/view/search_page.dart';
+import 'package:flutter_weather/presentation/view/custom_search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
