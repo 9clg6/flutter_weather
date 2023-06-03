@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
         centerTitle: false,
       ),
       backgroundColor: Theme.of(context).colorScheme.background,
+      resizeToAvoidBottomInset: false,
       bottomNavigationBar: NavigationBar(
         height: 65,
         backgroundColor: Theme.of(context).colorScheme.secondary,
@@ -81,7 +82,6 @@ class _HomePageState extends State<HomePage> {
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: PageView(
             controller: controller,
-            physics: const NeverScrollableScrollPhysics(),
             children: _children,
             onPageChanged: (value) {
               setState(() => _selectedIndex = value);

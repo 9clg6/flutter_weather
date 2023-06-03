@@ -22,9 +22,20 @@ class _OtherWeatherPageState extends State<OtherWeatherPage> {
     return Consumer<ForecastViewModel>(
       builder: (_, viewModel, __) {
         final current = viewModel.weatherData?.current;
+        final forecast = viewModel.weatherData?.forecast;
 
         return Stack(
           children: [
+            if (viewModel.weatherData != null) ...[
+              DetailedForecast(
+                location: viewModel.weatherData!.location,
+                current: current!,
+              ),
+              _buildResetBtn(viewModel, context)
+            ] else
+              const Center(
+                child: Text("Recherchez une ville dans la barre située ci-dessus."),
+              ),
             Align(
               alignment: Alignment.topCenter,
               child: Column(
@@ -34,13 +45,6 @@ class _OtherWeatherPageState extends State<OtherWeatherPage> {
                 ],
               ),
             ),
-            if (viewModel.weatherData != null) ...[
-              DetailedForecast(location: viewModel.weatherData!.location, current: current!),
-              _buildResetBtn(viewModel, context)
-            ] else
-              const Center(
-                child: Text("Recherchez une ville dans la barre située ci-dessus."),
-              ),
           ],
         );
       },
@@ -102,7 +106,7 @@ class _OtherWeatherPageState extends State<OtherWeatherPage> {
                       Provider.of<ForecastViewModel>(
                         context,
                         listen: false,
-                      ).fetchForecast(cityName: _cityTextController.text).onError((e, stackTrace) {
+                      ).fetchForecast(cityName: _cityTextController.text, days: 7).onError((e, stackTrace) {
                         setState(() => _error = (e as NoLocationFoundException).cause);
                       });
                     }
