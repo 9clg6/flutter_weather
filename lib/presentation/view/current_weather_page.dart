@@ -59,11 +59,11 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
 
   Widget _buildListViewHoursCondition(WeatherViewModel weatherViewModel) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 15),
+      padding: const EdgeInsets.symmetric(vertical: 12),
       child: SizedBox(
         height: 100,
         child: ListView.separated(
-          padding: const EdgeInsetsDirectional.symmetric(vertical: 5, horizontal: 5),
+          padding: const EdgeInsetsDirectional.symmetric(vertical: 5),
           itemCount: weatherViewModel.weather!.forecast.first.hour.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, hourIndex) {
