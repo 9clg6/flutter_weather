@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_weather/presentation/view/current_weather_page.dart';
-import 'package:flutter_weather/presentation/view/other_weather_page.dart';
+import 'package:flutter_weather/presentation/view/search_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,7 +15,7 @@ class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   final _children = [
     const CurrentWeatherPage(),
-    const OtherWeatherPage(),
+    const SearchPage(),
   ];
 
   @override
@@ -81,6 +81,7 @@ class _HomePageState extends State<HomePage> {
         child: GestureDetector(
           onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
           child: PageView(
+            physics: const NeverScrollableScrollPhysics(),
             controller: controller,
             children: _children,
             onPageChanged: (value) {
