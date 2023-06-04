@@ -1,3 +1,4 @@
+import 'package:flutter_weather/domain/exception/no_location_found_exception.dart';
 import 'package:flutter_weather/foundation/location_datasource.dart';
 import 'package:geolocator/geolocator.dart';
 
@@ -9,17 +10,19 @@ class LocationDataSourceImpl implements LocationDataSource {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
+      throw NoLocationFoundException("Le service de localisation est désactivé.");
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+        throw NoLocationFoundException(
+            "Pour afficher la météo dans la ville actuelle vous devez autoriser l'accès à la localisation.");
       }
     }
     if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
+      throw NoLocationFoundException(
+          "Pour afficher la météo dans la ville actuelle vous devez autoriser l'accès à la localisation.");
     }
     return Geolocator.getCurrentPosition();
   }

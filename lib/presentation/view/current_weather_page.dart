@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_weather/domain/exception/no_location_found_exception.dart';
 import 'package:flutter_weather/presentation/view_model/weather_viewmodel.dart';
 import 'package:flutter_weather/presentation/widget/current_weather_card.dart';
 import 'package:flutter_weather/presentation/widget/forecast_list.dart';
@@ -14,6 +15,7 @@ class CurrentWeatherPage extends StatefulWidget {
 
 class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   final _refreshController = RefreshController(initialRefresh: false);
+  String? _error;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,10 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         completeText: "La météo a été mise à jour ! ☀️",
       ),
       onRefresh: () async {
-        Provider.of<WeatherViewModel>(context, listen: false).fetchWeatherWithLocation().then((_) {
-          _refreshController.refreshCompleted();
+        setState(() {
+          Provider.of<WeatherViewModel>(context, listen: false).fetchWeatherWithLocation().then((_) {
+            _refreshController.refreshCompleted();
+          });
         });
       },
       controller: _refreshController,
@@ -56,8 +60,17 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
             );
           }
           return Center(
-            child: CircularProgressIndicator(
-              color: Theme.of(context).colorScheme.primary,
+            child: SizedBox(
+              width: 250,
+              child: Text(
+                "${_error ?? "Une erreur c'est produite"}\n\nTirez vers le bas pour actualiser la page",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                ),
+              ),
             ),
           );
         },
@@ -126,7 +139,11 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<WeatherViewModel>(context, listen: false).fetchWeatherWithLocation();
+      Provider.of<WeatherViewModel>(context, listen: false).fetchWeatherWithLocation().onError((error, stackTrace) {
+        if (error != null && error is NoLocationFoundException) {
+          setState(() => _error = error.cause);
+        }
+      });
     });
     super.initState();
   }
