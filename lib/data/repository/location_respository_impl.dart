@@ -6,7 +6,5 @@ class LocationRepositoryImpl extends LocationRepository {
   final _locationDataSource = LocationDataSourceImpl();
 
   @override
-  Future<Position> getCurrentLocation() {
-    return _locationDataSource.getCurrentLocation();
-  }
+  Future<Position> getCurrentLocation() => _locationDataSource.getCurrentLocation();
 }
