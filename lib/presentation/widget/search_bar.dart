@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 class CustomSearchBar extends StatefulWidget {
   final Future<void> Function(String formText) endingOnTap;
 
-  const CustomSearchBar({Key? key, required this.endingOnTap}) : super(key: key);
+  const CustomSearchBar({Key? key, required this.endingOnTap})
+      : super(key: key);
 
   @override
   State<CustomSearchBar> createState() => _CustomSearchBarState();
@@ -33,7 +34,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
             border: Border.all(color: Theme.of(context).colorScheme.primary),
             borderRadius: BorderRadius.circular(20),
           ),
-          padding: const EdgeInsetsDirectional.symmetric(horizontal: 10, vertical: 5),
+          padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: 10, vertical: 5),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -42,7 +44,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                 child: TextFormField(
                   controller: _cityTextController,
                   onFieldSubmitted: (_) {
-                    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                    if (_formKey.currentState != null &&
+                        _formKey.currentState!.validate()) {
                       widget.endingOnTap(_cityTextController.text);
                     }
                   },
@@ -76,7 +79,8 @@ class _CustomSearchBarState extends State<CustomSearchBar> {
                     color: Theme.of(context).colorScheme.primary,
                   ),
                   onTap: () async {
-                    if (_formKey.currentState != null && _formKey.currentState!.validate()) {
+                    if (_formKey.currentState != null &&
+                        _formKey.currentState!.validate()) {
                       widget.endingOnTap(_cityTextController.text);
                     }
                   },

@@ -90,7 +90,11 @@ class CurrentWeatherCard extends StatelessWidget {
             ),
             Text(
               "Dernière mise à jour: ${lastUpdate?.hour}:${lastUpdate?.minute}",
-              style: TextStyle(color: Theme.of(context).colorScheme.background.withOpacity(0.7)),
+              style: TextStyle(
+                  color: Theme.of(context)
+                      .colorScheme
+                      .background
+                      .withOpacity(0.7)),
             )
           ],
         ),

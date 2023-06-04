@@ -21,14 +21,17 @@ main() {
 
       const url =
           "http://api.weatherapi.com/v1/forecast.json?key=56b193ed76a34495b62124011230206&alerts=no&aqi=no&q=Lyon&dt=2023/6/4&lang=fr";
-      final response = File('test/repository/response/get_forecast_by_city_and_name_200.json').readAsStringSync();
+      final response = File(
+              'test/repository/response/get_forecast_by_city_and_name_200.json')
+          .readAsStringSync();
 
-      when(mockClient.get(Uri.parse(url), headers: anyNamed('headers'))).thenAnswer(
+      when(mockClient.get(Uri.parse(url), headers: anyNamed('headers')))
+          .thenAnswer(
         (_) async => Response(response, 200),
       );
 
-      final weatherData =
-          await weatherRemoteDataSourceImpl.getForecastByCityAndDate(cityToTest, dateToTest, mockClient);
+      final weatherData = await weatherRemoteDataSourceImpl
+          .getForecastByCityAndDate(cityToTest, dateToTest, mockClient);
 
       expect(weatherData, isA<WeatherData>());
     });

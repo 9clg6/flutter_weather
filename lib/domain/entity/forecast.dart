@@ -15,7 +15,8 @@ class Forecast {
 
   factory Forecast.fromJson(Map<String, dynamic> json) {
     var hourListFromJson = json['hour'] as List;
-    List<Hour> hourList = hourListFromJson.map((i) => Hour.fromJson(i)).toList();
+    List<Hour> hourList =
+        hourListFromJson.map((i) => Hour.fromJson(i)).toList();
 
     return Forecast(
       date: json['date'],

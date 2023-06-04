@@ -11,7 +11,8 @@ import 'package:http/http.dart';
 
 class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
   @override
-  Future<WeatherData>? getForecastByLocation(Position? location, String? city, int days, Client? client) async {
+  Future<WeatherData>? getForecastByLocation(
+      Position? location, String? city, int days, Client? client) async {
     final currentLocationWeatherResponse = await ApiHelper.get(
       client: client,
       url: forecastApiBase,
@@ -20,17 +21,22 @@ class WeatherRemoteDataSourceImpl implements WeatherRemoteDataSource {
         "days": days,
         "alerts": "no",
         "aqi": "no",
-        "q": location != null ? "${location.latitude},${location.longitude}" : city,
+        "q": location != null
+            ? "${location.latitude},${location.longitude}"
+            : city,
         "lang": "fr",
       },
     );
     if (currentLocationWeatherResponse.statusCode != 200) {
-      throw NoLocationFoundException("Aucune ville n'a été trouvée avec ce nom");
+      throw NoLocationFoundException(
+          "Aucune ville n'a été trouvée avec ce nom");
     }
-    return WeatherData.fromJson(jsonDecode(currentLocationWeatherResponse.body));
+    return WeatherData.fromJson(
+        jsonDecode(currentLocationWeatherResponse.body));
   }
 
-  Future<WeatherData>? getForecastByCityAndDate(String city, DateTime date, Client? client) async {
+  Future<WeatherData>? getForecastByCityAndDate(
+      String city, DateTime date, Client? client) async {
     final forecastByCityAndNameResponse = await ApiHelper.get(
       client: client,
       url: forecastApiBase,

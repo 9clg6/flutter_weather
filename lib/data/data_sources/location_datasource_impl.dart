@@ -10,7 +10,8 @@ class LocationDataSourceImpl implements LocationDataSource {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      throw NoLocationFoundException("Le service de localisation est désactivé.");
+      throw NoLocationFoundException(
+          "Le service de localisation est désactivé.");
     }
     permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {

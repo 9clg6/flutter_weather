@@ -19,7 +19,8 @@ class ForecastList extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
         final currentDay = forecast.elementAt(index);
-        final parsedDate = DateTime.fromMillisecondsSinceEpoch(currentDay.dateEpoch * 1000);
+        final parsedDate =
+            DateTime.fromMillisecondsSinceEpoch(currentDay.dateEpoch * 1000);
         final frenchDate = dateTimeToFrenchDate(parsedDate);
 
         return InkWell(
@@ -68,7 +69,8 @@ class ForecastList extends StatelessWidget {
                     ),
                   ],
                 ),
-                Image.network(currentDay.day.condition.icon.replaceFirst("//", "http://")),
+                Image.network(currentDay.day.condition.icon
+                    .replaceFirst("//", "http://")),
               ],
             ),
           ),

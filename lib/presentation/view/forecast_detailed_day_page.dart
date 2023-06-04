@@ -69,7 +69,8 @@ class ForecastDetailedDayPage extends StatelessWidget {
       itemBuilder: (context, index) {
         final currentHour = forecast.hour.elementAt(index);
         final maxTemp = forecast.day.maxTempC;
-        final hour = "${DateTime.fromMillisecondsSinceEpoch(currentHour.timeEpoch * 1000).hour}:00";
+        final hour =
+            "${DateTime.fromMillisecondsSinceEpoch(currentHour.timeEpoch * 1000).hour}:00";
 
         return LinearPercentIndicator(
           lineHeight: 35,

@@ -45,7 +45,8 @@ class Weather {
 
   factory Weather.fromJson(Map<String, dynamic> json) {
     return Weather(
-      lastUpdated: DateTime.fromMillisecondsSinceEpoch(json['last_updated_epoch'] * 1000),
+      lastUpdated: DateTime.fromMillisecondsSinceEpoch(
+          json['last_updated_epoch'] * 1000),
       tempC: json['temp_c'].toDouble(),
       tempF: json['temp_f'].toDouble(),
       isDay: json['is_day'] == 1,
@@ -74,7 +75,8 @@ class WeatherCondition {
   final String icon;
   final int code;
 
-  WeatherCondition({required this.text, required this.icon, required this.code});
+  WeatherCondition(
+      {required this.text, required this.icon, required this.code});
 
   factory WeatherCondition.fromJson(Map<String, dynamic> json) {
     return WeatherCondition(

@@ -8,8 +8,10 @@ import 'package:test/test.dart';
 main() {
   group('toolTest', () {
     test('paramBuilder', () {
-      expect(() => buildUrlWithParams("http://google.com", {}), throwsA(isA<UrlParamsException>()));
-      expect(() => buildUrlWithParams("http://google.com", null), throwsA(isA<UrlParamsException>()));
+      expect(() => buildUrlWithParams("http://google.com", {}),
+          throwsA(isA<UrlParamsException>()));
+      expect(() => buildUrlWithParams("http://google.com", null),
+          throwsA(isA<UrlParamsException>()));
 
       String url = buildUrlWithParams(
         "http://google.com",
@@ -44,7 +46,8 @@ main() {
       String month = monthNumberToMonthName(1);
       expect(month, "Janvier");
 
-      expect(() => monthNumberToMonthName(15), throwsA(isA<WrongMonthException>()));
+      expect(() => monthNumberToMonthName(15),
+          throwsA(isA<WrongMonthException>()));
     });
   });
 }

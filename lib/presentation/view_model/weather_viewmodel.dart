@@ -18,7 +18,8 @@ class WeatherViewModel extends ChangeNotifier {
 
   Future<void> fetchWeatherWithLocation() async {
     final position = await getCurrentLocation.getCurrentLocation();
-    _weather = await getForecastForLocation.getForecastByLocation(location: position, days: 1);
+    _weather = await getForecastForLocation.getForecastByLocation(
+        location: position, days: 1);
     notifyListeners();
   }
 }

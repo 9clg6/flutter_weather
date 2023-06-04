@@ -40,8 +40,10 @@ class _SearchPageState extends State<SearchPage> {
                           listen: false,
                         )
                           ..weatherData = null
-                          ..fetchForecast(cityName: cityName, days: 7).onError((error, stackTrace) {
-                            setState(() => _error = (error as NoLocationFoundException).cause);
+                          ..fetchForecast(cityName: cityName, days: 7)
+                              .onError((error, stackTrace) {
+                            setState(() => _error =
+                                (error as NoLocationFoundException).cause);
                           });
                       },
                     ),
@@ -64,7 +66,8 @@ class _SearchPageState extends State<SearchPage> {
                   const SizedBox(height: 50),
                 ] else
                   const Center(
-                    child: Text("Recherchez une ville dans la barre située ci-dessus."),
+                    child: Text(
+                        "Recherchez une ville dans la barre située ci-dessus."),
                   ),
               ],
             ),

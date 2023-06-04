@@ -25,7 +25,9 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
       ),
       onRefresh: () async {
         setState(() {
-          Provider.of<WeatherViewModel>(context, listen: false).fetchWeatherWithLocation().then((_) {
+          Provider.of<WeatherViewModel>(context, listen: false)
+              .fetchWeatherWithLocation()
+              .then((_) {
             _refreshController.refreshCompleted();
           });
         });
@@ -88,7 +90,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           itemCount: weatherViewModel.weather!.forecast.first.hour.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, hourIndex) {
-            final currentHour = weatherViewModel.weather!.forecast.first.hour.elementAt(hourIndex);
+            final currentHour = weatherViewModel.weather!.forecast.first.hour
+                .elementAt(hourIndex);
             final time = DateTime.parse(currentHour.time);
 
             return Container(
@@ -110,7 +113,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                 children: [
                   Text(
                     "${time.hour}h",
-                    style: TextStyle(color: Theme.of(context).colorScheme.background),
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.background),
                   ),
                   Text(
                     "${currentHour.tempC.toStringAsFixed(0)}°C",
@@ -139,7 +143,9 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<WeatherViewModel>(context, listen: false).fetchWeatherWithLocation().onError((error, stackTrace) {
+      Provider.of<WeatherViewModel>(context, listen: false)
+          .fetchWeatherWithLocation()
+          .onError((error, stackTrace) {
         if (error != null && error is NoLocationFoundException) {
           setState(() => _error = error.cause);
         }
