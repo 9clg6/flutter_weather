@@ -39,3 +39,23 @@ This application isn't intended to be deployed in production, so I didn't think 
 I figured that the integration tests I wrote would serve as proof of my ability to write integration tests. If you'd like to see a complete set of tests, please visit [HERE](https://github.com/ClementG63/Neo4Driver).
 
 You'll also find unit tests in this repository, used to test the various tools I've developed to meet my needs (utils).
+
+
+## Conventions 🫡
+
+In developing this project, I followed a number of conventions, as follows:
+
+Versioning conventions :
+- feature: x, for new functionalities
+- fix: x, for bug fixes
+- test: x, for test additions and modifications
+
+Branching conventions: 
+Oops, I forgot to implement them on this project, but here are the ones I usually use :
+- feature/x for functionalities
+- fix/x for bug fixes
+- test/x for adding tests.
+
+Each deployed feature will be deployed on a separate branch, which will then be merged onto the "develop" development branch. Each frozen develop version is tagged, and this version is merged with the main one. 
+
+
