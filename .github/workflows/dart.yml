@@ -23,4 +23,5 @@ jobs:
         flutter-version: '2.x'
     - run: flutter pub get
     - run: flutter test
+    - run: dart format --output=none .
     - run: flutter build apk
